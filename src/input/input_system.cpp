@@ -21,6 +21,8 @@
 REXCVAR_DEFINE_STRING(input_backend, "sdl", "Input",
                       "Input backend: sdl, xinput")
     .allowed({"sdl", "xinput"});
+
+REXCVAR_DEFINE_BOOL(guide_button, false, "Input", "Enable guide button pass-through");
 namespace rex::input {
 
 InputSystem::InputSystem(rex::ui::Window* window) : window_(window) {}

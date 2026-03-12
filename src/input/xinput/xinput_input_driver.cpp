@@ -21,8 +21,6 @@
 #include <rex/ui/virtual_key.h>
 #include <xinput.h>  // NOLINT(build/include_order)
 
-REXCVAR_DEFINE_BOOL(guide_button, false, "Input", "Enable guide button pass-through");
-
 namespace rex::input::xinput {
 
 XinputInputDriver::XinputInputDriver(rex::ui::Window* window, size_t window_z_order)
