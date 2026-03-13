@@ -18,12 +18,6 @@
 
 #include <rex/input/input_driver.h>
 
-#define HID_SDL_USER_COUNT 4
-#define HID_SDL_THUMB_THRES 0x4E00
-#define HID_SDL_TRIGG_THRES 0x1F
-#define HID_SDL_REPEAT_DELAY 400
-#define HID_SDL_REPEAT_RATE 100
-
 namespace rex::input::xinput {
 
 class XinputInputDriver final : public InputDriver {
