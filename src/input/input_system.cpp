@@ -18,8 +18,7 @@
 #include <rex/input/xinput/xinput_input_driver.h>
 #include <rex/logging.h>
 
-REXCVAR_DEFINE_STRING(input_backend, "sdl", "Input",
-                      "Input backend: sdl, xinput")
+REXCVAR_DEFINE_STRING(input_backend, "sdl", "Input", "Input backend: sdl, xinput")
     .allowed({"sdl", "xinput"});
 
 REXCVAR_DEFINE_BOOL(guide_button, false, "Input", "Enable guide button pass-through");
@@ -111,14 +110,14 @@ std::unique_ptr<InputSystem> CreateDefaultInputSystem(bool tool_mode) {
   auto input = std::make_unique<InputSystem>(nullptr);
 
   if (!tool_mode) {
-    #if REX_PLATFORM_WIN32
+#if REX_PLATFORM_WIN32
     if (REXCVAR_GET(input_backend) == "xinput") {
       auto xinput_driver = std::make_unique<xinput::XinputInputDriver>(nullptr, 0);
       if (xinput_driver->Setup() == X_STATUS_SUCCESS) {
         input->AddDriver(std::move(xinput_driver));
       }
     }
-    #endif
+#endif
 
     if (REXCVAR_GET(input_backend) == "sdl") {
       auto sdl_driver = std::make_unique<sdl::SDLInputDriver>(nullptr, 0);
