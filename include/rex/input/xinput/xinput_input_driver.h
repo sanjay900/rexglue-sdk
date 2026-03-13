@@ -50,4 +50,4 @@ class XinputInputDriver final : public InputDriver {
   void* XInputEnable_;
 };
 
-}  // namespace rex::input::sdl
+}  // namespace rex::input::xinput

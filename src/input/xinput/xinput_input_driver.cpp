@@ -34,7 +34,7 @@ XinputInputDriver::XinputInputDriver(rex::ui::Window* window, size_t window_z_or
       XInputEnable_(nullptr) {}
 
 XinputInputDriver::~XinputInputDriver() {
-   if (module_) {
+  if (module_) {
     FreeLibrary((HMODULE)module_);
     module_ = nullptr;
     XInputGetCapabilities_ = nullptr;
@@ -104,16 +104,14 @@ static void set_skip(uint32_t user_index) {
 }
 
 X_RESULT XinputInputDriver::GetCapabilities(uint32_t user_index, uint32_t flags,
-                                         X_INPUT_CAPABILITIES* out_caps) {
+                                            X_INPUT_CAPABILITIES* out_caps) {
   DWORD skipper = should_skip(user_index);
   if (skipper) {
     return skipper;
   }
   XINPUT_CAPABILITIES native_caps;
   auto xigc = (decltype(&XInputGetCapabilities))XInputGetCapabilities_;
-  DWORD result =
-      xigc(user_index, flags & ~X_INPUT_DEVTYPE::XINPUT_DEVTYPE_KEYBOARD,
-           &native_caps);
+  DWORD result = xigc(user_index, flags & ~X_INPUT_DEVTYPE::XINPUT_DEVTYPE_KEYBOARD, &native_caps);
   if (result) {
     if (result == ERROR_DEVICE_NOT_CONNECTED) {
       set_skip(user_index);
@@ -132,8 +130,7 @@ X_RESULT XinputInputDriver::GetCapabilities(uint32_t user_index, uint32_t flags,
   out_caps->gamepad.thumb_rx = native_caps.Gamepad.sThumbRX;
   out_caps->gamepad.thumb_ry = native_caps.Gamepad.sThumbRY;
   out_caps->vibration.left_motor_speed = native_caps.Vibration.wLeftMotorSpeed;
-  out_caps->vibration.right_motor_speed =
-      native_caps.Vibration.wRightMotorSpeed;
+  out_caps->vibration.right_motor_speed = native_caps.Vibration.wRightMotorSpeed;
 
   return result;
 }
@@ -153,7 +150,7 @@ X_RESULT XinputInputDriver::GetState(uint32_t user_index, X_INPUT_STATE* out_sta
   // If the guide button is enabled use XInputGetStateEx, otherwise use the
   // default XInputGetState.
   auto xigs = REXCVAR_GET(guide_button) ? (decltype(&XInputGetState))XInputGetStateEx_
-                                  : (decltype(&XInputGetState))XInputGetState_;
+                                        : (decltype(&XInputGetState))XInputGetState_;
 
   DWORD result = xigs(user_index, &native_state.state);
   if (result) {
@@ -192,7 +189,7 @@ X_RESULT XinputInputDriver::SetState(uint32_t user_index, X_INPUT_VIBRATION* vib
 }
 
 X_RESULT XinputInputDriver::GetKeystroke(uint32_t users, uint32_t flags,
-                                      X_INPUT_KEYSTROKE* out_keystroke) {
+                                         X_INPUT_KEYSTROKE* out_keystroke) {
   // We may want to filter flags/user_index before sending to native.
   // flags is reserved on desktop.
   DWORD result;
