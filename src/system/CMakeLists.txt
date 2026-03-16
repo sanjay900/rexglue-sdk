@@ -65,6 +65,7 @@ target_link_libraries(rexsystem
         rexcore
         rexfilesystem
         simde
+        rexkernel
     PRIVATE
         aes128
         mspack
